@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Press+Start+2P&family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Medieval / Minecraft-server inspired palette (original) */
+    --background: 220 28% 8%;
+    --foreground: 42 65% 92%;
+
+    --card: 222 30% 11%;
+    --card-foreground: 42 60% 92%;
+
+    --popover: 222 32% 10%;
+    --popover-foreground: 42 60% 92%;
+
+    /* Gold primary */
+    --primary: 42 88% 55%;
+    --primary-foreground: 30 50% 10%;
+    --primary-glow: 46 95% 65%;
+    --primary-deep: 36 80% 38%;
+
+    --secondary: 222 25% 16%;
+    --secondary-foreground: 42 60% 90%;
+
+    --muted: 222 22% 18%;
+    --muted-foreground: 42 20% 70%;
+
+    --accent: 18 80% 52%;
+    --accent-foreground: 42 60% 96%;
+
+    --destructive: 0 75% 52%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 42 35% 28%;
+    --input: 222 25% 14%;
+    --ring: 42 88% 55%;
+
+    --radius: 0.25rem;
+
+    /* Stone / parchment specials */
+    --stone-dark: 222 25% 9%;
+    --stone-mid: 222 22% 14%;
+    --stone-light: 222 18% 22%;
+    --gold-dark: 36 75% 32%;
+    --gold-mid: 42 88% 55%;
+    --gold-light: 48 95% 70%;
+    --emerald: 150 70% 45%;
+
+    --gradient-gold: linear-gradient(180deg, hsl(48 95% 70%) 0%, hsl(42 88% 55%) 50%, hsl(36 75% 38%) 100%);
+    --gradient-stone: linear-gradient(180deg, hsl(222 22% 18%) 0%, hsl(222 28% 10%) 100%);
+    --gradient-sky: linear-gradient(180deg, hsl(212 60% 35%) 0%, hsl(200 50% 50%) 100%);
+
+    --shadow-gold: 0 0 24px hsl(42 88% 55% / 0.35), 0 4px 0 hsl(36 75% 28%);
+    --shadow-panel: 0 8px 24px hsl(220 50% 2% / 0.6), inset 0 1px 0 hsl(42 35% 35% / 0.4);
+    --shadow-deep: 0 12px 40px hsl(220 50% 2% / 0.7);
+
+    --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+    background-image:
+      radial-gradient(ellipse at top, hsl(222 35% 14%) 0%, hsl(220 30% 6%) 60%);
+    background-attachment: fixed;
+  }
+  h1, h2, h3, h4 { font-family: 'Cinzel', serif; letter-spacing: 0.02em; }
+}
+
+@layer components {
+  .font-pixel { font-family: 'Press Start 2P', monospace; }
+  .font-medieval { font-family: 'Cinzel', serif; }
+
+  /* Stone panel with gold corner ornaments */
+  .stone-panel {
+    position: relative;
+    background: var(--gradient-stone);
+    border: 1px solid hsl(var(--border));
+    box-shadow: var(--shadow-panel);
+    border-radius: var(--radius);
+  }
+  .stone-panel::before,
+  .stone-panel::after {
+    content: '';
+    position: absolute;
+    width: 18px; height: 18px;
+    border: 2px solid hsl(var(--primary));
+    pointer-events: none;
+  }
+  .stone-panel::before { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+  .stone-panel::after { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+
+  .gold-text {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 2px 0 hsl(36 75% 18% / 0.4);
+  }
+
+  .btn-gold {
+    background: var(--gradient-gold);
+    color: hsl(var(--primary-foreground));
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    border: 1px solid hsl(36 75% 32%);
+    box-shadow: 0 3px 0 hsl(36 75% 22%), inset 0 1px 0 hsl(48 100% 80% / 0.6);
+    transition: var(--transition-smooth);
+    text-transform: uppercase;
+  }
+  .btn-gold:hover { transform: translateY(-1px); box-shadow: 0 4px 0 hsl(36 75% 22%), 0 0 20px hsl(var(--primary) / 0.5), inset 0 1px 0 hsl(48 100% 80% / 0.7); }
+  .btn-gold:active { transform: translateY(2px); box-shadow: 0 1px 0 hsl(36 75% 22%); }
+
+  .nav-tab {
+    background: linear-gradient(180deg, hsl(48 90% 62%) 0%, hsl(42 85% 50%) 50%, hsl(36 75% 35%) 100%);
+    color: hsl(30 60% 14%);
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    border: 1px solid hsl(36 75% 28%);
+    box-shadow: 0 2px 0 hsl(30 70% 18%), inset 0 1px 0 hsl(48 100% 80%);
+    transition: var(--transition-smooth);
+    text-transform: uppercase;
+  }
+  .nav-tab:hover { filter: brightness(1.1); transform: translateY(-1px); }
+  .nav-tab.active { box-shadow: 0 0 0 2px hsl(var(--primary-glow)), inset 0 1px 0 hsl(48 100% 80%); }
+
+  .pixel-border {
+    border: 2px solid hsl(var(--gold-dark));
+    box-shadow:
+      inset 0 0 0 2px hsl(var(--gold-mid)),
+      inset 0 0 0 4px hsl(var(--gold-dark)),
+      0 4px 12px hsl(220 50% 2% / 0.5);
+  }
+
+  .rank-card {
+    @apply stone-panel;
+    transition: var(--transition-smooth);
+  }
+  .rank-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-deep), 0 0 32px hsl(var(--primary) / 0.25); }
+
+  .ornament-divider {
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, hsl(var(--primary) / 0.6) 50%, transparent 100%);
+    position: relative;
+  }
+  .ornament-divider::before {
+    content: '✦';
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    color: hsl(var(--primary));
+    background: hsl(var(--background));
+    padding: 0 12px;
+    font-size: 12px;
+  }
+
+  .input-medieval {
+    background: hsl(var(--input));
+    border: 1px solid hsl(var(--border));
+    color: hsl(var(--foreground));
+    transition: var(--transition-smooth);
+  }
+  .input-medieval:focus {
+    outline: none;
+    border-color: hsl(var(--primary));
+    box-shadow: 0 0 0 2px hsl(var(--primary) / 0.25);
+  }
+}
