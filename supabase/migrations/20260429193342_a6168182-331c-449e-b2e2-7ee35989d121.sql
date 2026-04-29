@@ -1,4 +1,3 @@
-
 -- Roles enum + table
 CREATE TYPE public.app_role AS ENUM ('admin', 'moderator', 'user');
 
@@ -40,7 +39,7 @@ CREATE TABLE public.ranks (
   short_name TEXT,
   description TEXT NOT NULL,
   price_cents INTEGER NOT NULL,
-  currency TEXT NOT NULL DEFAULT 'usd',
+  currency TEXT NOT NULL DEFAULT 'eur',
   color TEXT NOT NULL DEFAULT '#facc15',
   perks JSONB NOT NULL DEFAULT '[]'::jsonb,
   is_lifetime BOOLEAN NOT NULL DEFAULT false,
@@ -57,7 +56,7 @@ CREATE TABLE public.orders (
   minecraft_username TEXT NOT NULL,
   email TEXT NOT NULL,
   amount_cents INTEGER NOT NULL,
-  currency TEXT NOT NULL DEFAULT 'usd',
+  currency TEXT NOT NULL DEFAULT 'eur',
   status TEXT NOT NULL DEFAULT 'pending',
   stripe_session_id TEXT UNIQUE,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
@@ -174,16 +173,10 @@ CREATE POLICY "posts self delete" ON public.forum_posts FOR DELETE USING (auth.u
 INSERT INTO public.ranks (slug, name, short_name, description, price_cents, color, perks, is_lifetime, sort_order) VALUES
 ('vip', 'VIP', 'VIP', 'Stand out from the crowd with the entry-level rank.', 499, '#22c55e',
   '["Colored chat name","/hat command","2 extra homes","VIP join message"]'::jsonb, false, 1),
-('vip-plus', 'VIP+', 'VIP+', 'Everything in VIP, with extra perks and prefixes.', 999, '#10b981',
+('vip-plus', 'VIP+', 'VIP+', 'Everything in VIP, with extra perks and prefixes.', 899, '#10b981',
   '["All VIP perks","/nick command","4 extra homes","Particle trails","Priority queue"]'::jsonb, false, 2),
-('mtp', 'MegaTurtlePlayer', 'MTP', 'For dedicated turtles. Unlock advanced gameplay tools.', 1999, '#06b6d4',
-  '["All VIP+ perks","/fly in lobby","8 extra homes","Custom prefix color","Pet system access","Exclusive cosmetics"]'::jsonb, false, 3),
-('sponsor-1', 'Sponsor Tier 1', 'Sponsor I', 'Support the server while gaining exclusive sponsor perks.', 2999, '#a855f7',
-  '["All MTP perks","Sponsor chat tag","12 extra homes","Early access to events","Monthly key crate"]'::jsonb, false, 4),
-('sponsor-2', 'Sponsor Tier 2', 'Sponsor II', 'Premium sponsor tier with the best monthly perks.', 4999, '#f43f5e',
-  '["All Sponsor I perks","Animated chat tag","20 extra homes","Private sponsor channel","Weekly key crate","Custom particle effect"]'::jsonb, false, 5),
-('special-lifetime', 'Special (Lifetime)', 'Special', 'The ultimate rank. Lifetime access to every perk on TurtleCraft.', 9999, '#facc15',
-  '["Everything from all ranks","LIFETIME access — never expires","Custom title & prefix","Unlimited homes","Direct line to staff","Founder badge","All future rank perks included"]'::jsonb, true, 6);
+('mtp', 'MegaTurtlePlayer', 'MTP', 'For dedicated turtles. Unlock advanced gameplay tools.', 1499, '#06b6d4',
+  '["All VIP+ perks","/fly in lobby","8 extra homes","Custom prefix color","Pet system access","Exclusive cosmetics"]'::jsonb, false, 3);
 
 -- Seed forum categories
 INSERT INTO public.forum_categories (slug, name, description, sort_order) VALUES
